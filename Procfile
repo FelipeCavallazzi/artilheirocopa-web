@@ -1,0 +1,1 @@
+web: gunicorn artilheirocopa_web.wsgi
