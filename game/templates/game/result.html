@@ -1,0 +1,46 @@
+{% extends "game/base.html" %}
+
+{% block content %}
+<div style="text-align:center; margin-bottom:28px;">
+
+  {% if result.is_correct %}
+  <div style="font-size:3rem; margin-bottom:12px;">✅</div>
+  <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--correct); letter-spacing:2px;">
+    Correto!
+  </div>
+  <p style="color:var(--muted); margin-top:8px;">
+    {{ result.correct_name }} marcou {{ result.goals }} gol{{ result.goals|pluralize:"s" }}
+    pelo {{ result.team }} em {{ result.year }}.
+  </p>
+  {% else %}
+  <div style="font-size:3rem; margin-bottom:12px;">❌</div>
+  <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--wrong); letter-spacing:2px;">
+    Errado!
+  </div>
+  <p style="color:var(--muted); margin-top:8px;">
+    O artilheiro era {{ result.correct_name }} com {{ result.goals }} gol{{ result.goals|pluralize:"s" }}
+    pelo {{ result.team }} em {{ result.year }}.
+  </p>
+  {% endif %}
+
+  <div style="margin-top:20px; color:var(--muted); font-size:.9rem;">
+    Rodada {{ round }} — {{ score }} acerto{{ score|pluralize:"s" }}
+  </div>
+</div>
+
+{% if result.is_correct %}
+<div style="display:flex; flex-direction:column; gap:12px;">
+  <a href="{% url 'question' %}" class="btn" style="text-align:center;">
+    CONTINUAR
+  </a>
+  <a href="{% url 'gameover' %}" 
+     style="text-align:center; color:var(--muted); font-size:.9rem; text-decoration:none; padding:10px;">
+    Encerrar jogo
+  </a>
+</div>
+{% else %}
+<a href="{% url 'gameover' %}" class="btn" style="text-align:center; display:block;">
+  VER RESULTADO FINAL
+</a>
+{% endif %}
+{% endblock %}

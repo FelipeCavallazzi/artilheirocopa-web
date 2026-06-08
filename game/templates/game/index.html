@@ -1,0 +1,68 @@
+{% extends "game/base.html" %}
+
+{% block content %}
+<form method="POST" action="{% url 'start' %}">
+  {% csrf_token %}
+
+  <h2 style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; letter-spacing:2px; margin-bottom:24px;">
+    Configurar Jogo
+  </h2>
+
+  <div style="margin-bottom:20px;">
+    <label style="display:block; color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+      Dificuldade
+    </label>
+    <select name="difficulty" style="width:100%; background:var(--dark); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:1rem;">
+      <option value="hard" {% if last_difficulty == "hard" %}selected{% endif %}>Difícil — todos os times</option>
+      <option value="easy" {% if last_difficulty == "easy" %}selected{% endif %}>Fácil — apenas times das quartas de final</option>
+    </select>
+  </div>
+
+  <div style="display:flex; gap:16px; margin-bottom:28px;">
+    <div style="flex:1;">
+      <label style="display:block; color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+        De
+      </label>
+      <select name="ano_de" id="ano_de" onchange="atualizarAte()" style="width:100%; background:var(--dark); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:1rem;">
+        {% for ano in anos %}
+        <option value="{{ ano }}" {% if ano == last_ano_de %}selected{% endif %}>{{ ano }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="flex:1;">
+      <label style="display:block; color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">
+        Até
+      </label>
+      <select name="ano_ate" id="ano_ate" style="width:100%; background:var(--dark); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-size:1rem;">
+        {% for ano in anos %}
+        <option value="{{ ano }}" {% if ano == last_ano_ate %}selected{% endif %}>{{ ano }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <button type="submit" class="btn" style="width:100%; text-align:center;">
+    JOGAR
+  </button>
+</form>
+
+<script>
+  function atualizarAte() {
+    const anoDe  = parseInt(document.getElementById("ano_de").value);
+    const anoAte = document.getElementById("ano_ate");
+
+    Array.from(anoAte.options).forEach(option => {
+      const val = parseInt(option.value);
+      option.disabled = val < anoDe;
+      option.style.color = val < anoDe ? "var(--muted)" : "var(--text)";
+    });
+
+    if (parseInt(anoAte.value) < anoDe) {
+      const primeiroValido = Array.from(anoAte.options).find(o => !o.disabled);
+      if (primeiroValido) anoAte.value = primeiroValido.value;
+    }
+  }
+
+  atualizarAte();
+</script>
+{% endblock %}

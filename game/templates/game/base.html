@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artilheiro da Copa</title>
+  <style>
+    :root {
+      --gold:    #F5C518;
+      --green:   #1a6b2e;
+      --dark:    #0a0f0d;
+      --card:    #111a14;
+      --border:  #2a3d2e;
+      --text:    #e8f0e9;
+      --muted:   #6b8c70;
+      --correct: #2ecc71;
+      --wrong:   #e74c3c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap');
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      letter-spacing: 4px;
+      color: var(--gold);
+    }
+    header p {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-top: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .btn {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: 10px;
+      padding: 14px 36px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: opacity .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { opacity: .85; }
+
+    footer {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: .75rem;
+      text-align: center;
+      opacity: .6;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1> Artilheiro da Copa</h1>
+    <p>Quem marcou mais gols por seleção em cada copa?</p>
+  </header>
+
+  <div class="card">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer style="margin-top:32px; color:var(--muted); font-size:.75rem; text-align:center; opacity:.8; line-height:1.8;">
+  Dados: <strong>Fjelstul World Cup Database</strong> · © 2023 Joshua C. Fjelstul, Ph.D. ·
+  <a href="https://www.github.com/jfjelstul/worldcup" style="color:var(--muted);" target="_blank">github.com/jfjelstul/worldcup</a> ·
+  Licença: <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode" style="color:var(--muted);" target="_blank">CC-BY-SA 4.0</a> ·
+  Os dados foram filtrados e agrupados para uso neste jogo.
+</footer>
+</body>
+</html>
